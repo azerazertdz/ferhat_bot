@@ -74,6 +74,11 @@ const TEMPLATES = [
     name: "Shahid Sport 1 Year",
     description: "اشتراك شاهد رياضية لمدة سنة",
   },
+  {
+    id: 6,
+    name: "Netflix 1 Month",
+    description: "اشتراك نتفليكس شهر",
+  },
 ];
 
 // Connect to MongoDB
@@ -241,21 +246,43 @@ async function generateTemplate(chatId, templateId) {
       bot.sendMessage(chatId, "Invalid Combo");
       return;
     }
-    // Array.from({ length: 4 }).forEach((_, index) => {
-    for (let index = 0; index < 4; index++) {
-      bot.sendMessage(
-        chatId,
-        ` \n${TEMPLATES[templateId].description}
+    // \n${TEMPLATES[templateId].description}
+    // الايميل :    ${email}  \n
+    // الباسورد :  ${password} \n
+    // الشاشة رقم  ${index + 1} \n
+    // الشروط: \n\n
+    // ❌ ممنوع ادخال اكثر من جهاز واحد ❌ \n\n
+    // - الشاشة لشخص واحد فقط. \n
+    // - ممنوع مشاركة المعلومات لتجنب تقطعات المشاهدة. \n\n
+    // رابط المتجر: https://max-2u.com/ \n
+
+    if (templateId == 6) {
+      let NetflixTemplates = generateNetflixTemplates(email, password);
+      NetflixTemplates.map((template) => {
+        bot.sendMessage(chatId, template);
+      });
+    } else {
+      // Array.from({ length: 4 }).forEach((_, index) => {
+      for (let index = 0; index < 4; index++) {
+        bot.sendMessage(
+          chatId,
+          `\n${TEMPLATES[templateId].description}
     الايميل :    ${email}  \n
     الباسورد :  ${password} \n
     الشاشة رقم  ${index + 1} \n
     الشروط: \n\n
     ❌ ممنوع ادخال اكثر من جهاز واحد ❌ \n\n
     - الشاشة لشخص واحد فقط. \n
-    - ممنوع مشاركة المعلومات لتجنب تقطعات المشاهدة. \n\n
+    - ممنوع مشاركة المعلومات لتجنب تقطعات المشاهدة. \n
+    ${
+      templateId >= 3
+        ? "- ✅ اذا مالقيت الشاشة سوي اضافة و اكتب اسمك فالشاشة ✅ \n\n"
+        : "\n"
+    }
     رابط المتجر: https://max-2u.com/ \n
-    `
-      );
+`
+        );
+      }
     }
 
     bot.removeListener("message", handleMessage); // Remove the listener
@@ -282,6 +309,70 @@ async function handleReturnButtons(chatId) {
   bot.sendMessage(chatId, "Please select template to generate:", options);
 }
 
+function generateNetflixTemplates(email, password) {
+  return [
+    `اشتراك نتفليكس شهر \n 
+ملف خاص ✅ \n\n
+الايميل :  ${email} \n
+الباسورد :  ${password} \n
+الشاشة : 1  \n
+كود الشاشة : 2230 \n\n
+الشروط :  \n
+- ممنوع تغيير كلمة المرور ❌ \n
+- ممنوع استخدام الحساب في جهازين مختلفين في نفس الوقت \n\n ❌
+نتمنى منكم احترام الشروط لمشاهدة ممتعة \n ♥️
+رابط المتجر: https://max-2u.com/
+`,
+    `اشتراك نتفليكس شهر \n 
+ملف خاص ✅ \n\n
+الايميل :  ${email} \n
+الباسورد :  ${password} \n
+الشاشة : 2  \n
+كود الشاشة : 3550 \n\n
+الشروط :  \n
+- ممنوع تغيير كلمة المرور ❌ \n
+- ممنوع استخدام الحساب في جهازين مختلفين في نفس الوقت \n\n ❌
+نتمنى منكم احترام الشروط لمشاهدة ممتعة \n ♥️
+رابط المتجر: https://max-2u.com/
+`,
+    `اشتراك نتفليكس شهر \n 
+ملف خاص ✅ \n\n
+الايميل :  ${email} \n
+الباسورد :  ${password} \n
+الشاشة : 3  \n
+كود الشاشة : 5660 \n\n
+الشروط :  \n
+- ممنوع تغيير كلمة المرور ❌ \n
+- ممنوع استخدام الحساب في جهازين مختلفين في نفس الوقت \n\n ❌
+نتمنى منكم احترام الشروط لمشاهدة ممتعة \n ♥️
+رابط المتجر: https://max-2u.com/
+`,
+    `اشتراك نتفليكس شهر \n 
+ملف خاص ✅ \n\n
+الايميل :  ${email} \n
+الباسورد :  ${password} \n
+الشاشة : 4  \n
+كود الشاشة : 7440 \n\n
+الشروط :  \n
+- ممنوع تغيير كلمة المرور ❌ \n
+- ممنوع استخدام الحساب في جهازين مختلفين في نفس الوقت \n\n ❌
+نتمنى منكم احترام الشروط لمشاهدة ممتعة \n ♥️
+رابط المتجر: https://max-2u.com/
+`,
+    `اشتراك نتفليكس شهر \n 
+ملف خاص ✅ \n\n
+الايميل :  ${email} \n
+الباسورد :  ${password} \n
+الشاشة : 5  \n
+كود الشاشة : 2003 \n\n
+الشروط :  \n
+- ممنوع تغيير كلمة المرور ❌ \n
+- ممنوع استخدام الحساب في جهازين مختلفين في نفس الوقت \n\n ❌
+نتمنى منكم احترام الشروط لمشاهدة ممتعة \n ♥️
+رابط المتجر: https://max-2u.com/
+`,
+  ];
+}
 // Command handlers
 bot.onText(/\/start/, (msg) => {
   // BOT_WAITING_FOR_RESPONSE = false;
